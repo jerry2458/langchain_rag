@@ -28,7 +28,7 @@ if question:
             for doc in result["source_documents"]:
                 source = doc.metadata["source"]
                 page = doc.metadata.get("page", "알 수 없음")  # 페이지 정보가 없으면 기본값
-                content = doc.page_content.strip()
+                content = doc.page_content
                 with st.expander(f"PDF 내용 (파일: {source}, 페이지: {page})"):
                     st.write(content)
 
