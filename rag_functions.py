@@ -7,9 +7,14 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 import pdfplumber
+import pysqlite3 as sqlite3
 
 # OpenAI API 키 설정
-os.environ["OPENAI_API_KEY"] = 
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # 벡터 저장소 로드
 def load_vectorstore(vectorstore_path):
