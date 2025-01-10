@@ -118,6 +118,8 @@ def main():
     # 벡터 저장소 경로
     vectorstore_path = "./chroma_db"  # 벡터 저장소 경로
 
+    vectorstore = load_vectorstore(vectorstore_path)
+
     # QA 체인 생성
     print("Creating QA chain...")
     qa_chain = create_qa_chain(vectorstore)
