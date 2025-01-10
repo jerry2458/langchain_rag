@@ -12,6 +12,7 @@ from langchain_community.embeddings import SentenceTransformerEmbeddings
 
 # OpenAI API 키 설정
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 __import__('pysqlite3')
 import sys
