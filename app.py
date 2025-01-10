@@ -7,10 +7,14 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 import pdfplumber
+import pysqlite3 as sqlite3
 
 # OpenAI API 키 설정
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # 1. PDF 텍스트 추출 (페이지 정보 포함)
 def extract_text_with_page_info(pdf_path):
