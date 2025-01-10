@@ -19,7 +19,7 @@ if question:
             qa_chain = create_qa_chain(vectorstore)
 
             # 질문에 대한 답변 생성
-            result = qa_chain({"query": query})
+            result = qa_chain({"query": question})
 
             st.subheader("답변:")
             st.write(result["result"])
