@@ -25,7 +25,7 @@ def load_vectorstore(vectorstore_path):
 
 # 6. 질문-응답 체인 생성
 def create_qa_chain(vectorstore):
-    llm = ChatOpenAI(model_name="gpt-4", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
     retriever = vectorstore.as_retriever()
 
     prompt_template = """아래의 문맥을 사용하여 질문에 답하십시오.
