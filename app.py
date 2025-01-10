@@ -9,7 +9,7 @@ from langchain.prompts import PromptTemplate
 import pdfplumber
 
 # OpenAI API 키 설정
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 
 # 1. PDF 텍스트 추출 (페이지 정보 포함)
