@@ -9,7 +9,8 @@ question = st.text_input("해당 주제에 대해 질문하세요:")
 if question:
     if st.button("답변 받기"):
         with st.spinner("처리 중..."):
-
+            
+            vectorstore_path = "./chroma_db"  # 벡터 저장소 경로
             print("Loading existing vector store...")
             vectorstore = load_vectorstore(vectorstore_path)
 
