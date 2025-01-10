@@ -8,6 +8,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 import pdfplumber
 import pysqlite3 as sqlite3
+from langchain_community.embeddings import SentenceTransformerEmbeddings
 
 # OpenAI API 키 설정
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
@@ -18,7 +19,8 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # 벡터 저장소 로드
 def load_vectorstore(vectorstore_path):
-    embeddings = OpenAIEmbeddings()
+    # embeddings = OpenAIEmbeddings()
+    embeddings = SentenceTransformerEmbeddings(model_name="snunlp/KR-SBERT-V40K-klueNLI-augSTS")
     vectorstore = Chroma(persist_directory=vectorstore_path, embedding_function=embeddings)
     return vectorstore
 
