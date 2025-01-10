@@ -115,17 +115,8 @@ def create_qa_chain(vectorstore):
 
 # 7. 메인 실행
 def main():
-    # PDF 폴더 경로와 벡터 저장소 경로
-    pdf_folder = "/Users/jerry/PycharmProjects/pythonProject/history"  # PDF 파일 저장 폴더
-    vectorstore_path = "/Users/jerry/PycharmProjects/pythonProject/chroma_db"  # 벡터 저장소 경로
-
-    # 벡터 저장소 생성 또는 로드
-    if not os.path.exists(vectorstore_path):
-        print("Processing PDF files and creating vector store...")
-        vectorstore = process_pdf_folder_to_vectorstore(pdf_folder, vectorstore_path)
-    else:
-        print("Loading existing vector store...")
-        vectorstore = load_vectorstore(vectorstore_path)
+    # 벡터 저장소 경로
+    vectorstore_path = "./chroma_db"  # 벡터 저장소 경로
 
     # QA 체인 생성
     print("Creating QA chain...")
