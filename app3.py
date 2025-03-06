@@ -2,8 +2,8 @@ import streamlit as st
 from rag_functions3 import load_html_explanation_data, load_and_split_pdf, create_vector_store, create_rag_chain
 
 # ✅ 파일 경로 설정
-csv_path = "qbank_quest_danbi.csv"   # 문제 & 해설 데이터
-pdf_path = "em_5_2_5_c_e.pdf"       # 수학 단원 PDF 파일
+csv_path = "./qbank_quest_danbi.csv"   # 문제 & 해설 데이터
+pdf_path = "./em_5_2_5_c_e.pdf"       # 수학 단원 PDF 파일
 
 # ✅ 데이터 로드 및 벡터 저장소 생성
 st.sidebar.header("📂 데이터 로딩 중...")
