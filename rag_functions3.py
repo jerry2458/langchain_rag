@@ -35,15 +35,15 @@ def load_and_split_pdf(file_path):
 
 
 # ✅ (3) 벡터 저장소 생성 (문제 해설 + PDF 단원 저장)
-def create_vector_store(explanations, pdf_texts):
+def create_vector_store(explanations, pdf_texts, persist_directory="chroma_db"):
     embeddings = OpenAIEmbeddings()
 
-    # HTML 문제 해설을 FAISS에 추가
+    # HTML 문제 해설을 ChromaDB에 추가
     explanation_texts = [f"<b>문제:</b> {ex['question']}<br><b>해설:</b> {ex['explanation']}" for ex in explanations]
-    explanation_store = FAISS.from_texts(explanation_texts, embeddings)
+    explanation_store = Chroma.from_texts(explanation_texts, embeddings, persist_directory=persist_directory + "/explanations")
 
-    # PDF 단원도 FAISS에 추가
-    pdf_store = Chroma.from_documents(pdf_texts, embedding=embeddings, persist_directory=vectorstore_path)
+    # PDF 단원도 ChromaDB에 추가
+    pdf_store = Chroma.from_documents(pdf_texts, embeddings, persist_directory=persist_directory + "/pdfs")
 
     return explanation_store, pdf_store
 
