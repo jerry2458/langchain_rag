@@ -3,7 +3,7 @@ import pandas as pd
 from langchain.document_loaders import PDFPlumberLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain.vectorstores import Chroma
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
@@ -43,7 +43,7 @@ def create_vector_store(explanations, pdf_texts):
     explanation_store = FAISS.from_texts(explanation_texts, embeddings)
 
     # PDF 단원도 FAISS에 추가
-    pdf_store = FAISS.from_documents(pdf_texts, embeddings)
+    pdf_store = Chroma.from_documents(pdf_texts, embedding=embeddings, persist_directory=vectorstore_path)
 
     return explanation_store, pdf_store
 
