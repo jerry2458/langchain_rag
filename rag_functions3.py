@@ -13,6 +13,11 @@ from langchain.chains.question_answering import load_qa_chain
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
+
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 # ✅ (1) HTML 형식의 문제 및 해설 데이터 로드
 def load_html_explanation_data(file_path):
     df = pd.read_csv(file_path)  # CSV에서 HTML 형식 데이터 불러오기
