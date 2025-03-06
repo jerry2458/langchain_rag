@@ -9,6 +9,9 @@ from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain
 
+# OpenAI API 키 설정
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # ✅ (1) HTML 형식의 문제 및 해설 데이터 로드
 def load_html_explanation_data(file_path):
