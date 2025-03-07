@@ -1,5 +1,5 @@
 import streamlit as st
-from rag_functions4 import load_html_explanation_data, refine_question, refine_explanation
+from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
 from langchain.chat_models import AzureChatOpenAI
 import os
 import streamlit.components.v1 as components
