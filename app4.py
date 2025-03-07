@@ -72,8 +72,8 @@ html_template = """
             padding-bottom: 5px;
         }}
         .content {{
-            font-size: 18px;
-            padding: 15px;
+            font-size: 10px;
+            padding: 12px;
             background: #f9f9f9;
             border-radius: 10px;
             white-space: pre-line;  /* ✅ 줄바꿈 유지 */
