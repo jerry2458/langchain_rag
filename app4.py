@@ -1,5 +1,5 @@
 import streamlit as st
-from rag_functions import load_html_explanation_data, generate_detailed_explanation
+from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
 from langchain.chat_models import ChatOpenAI
 
 # ✅ 파일 경로 설정
