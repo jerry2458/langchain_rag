@@ -31,6 +31,7 @@ def load_html_explanation_data(file_path):
     explanations = []
     for _, row in df.iterrows():
         explanations.append({
+            "question_id": row["문항아이디"],  # ✅ 문항아이디 추가
             "question": convert_latex_to_mathjax(row["문제"]),
             "explanation": convert_latex_to_mathjax(row["해설"])
         })
