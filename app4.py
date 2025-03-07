@@ -1,6 +1,6 @@
 import streamlit as st
 from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
-from langchain.chat_models import ChatOpenAI
+from langchain.chat_models import AzureChatOpenAI
 
 # ✅ 파일 경로 설정
 csv_path = "./qbank_quest_danbi.csv"
@@ -10,7 +10,13 @@ st.sidebar.header("📂 데이터 로딩 중...")
 problems = load_html_explanation_data(csv_path)
 
 # ✅ GPT 모델 설정
-llm = ChatOpenAI(model_name="gpt-4", temperature=0.5)
+llm = AzureChatOpenAI(
+    deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
+    openai_api_base=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    openai_api_version="2024-05-13",
+    openai_api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    temperature=1.0
+)
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
 mathjax_script = """
