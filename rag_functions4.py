@@ -43,7 +43,7 @@ def generate_detailed_explanation(llm, question, explanation):
             "다음 문제의 해설을 초등학생도 이해할 수 있도록 친절하게 바꿔주세요:\n\n"
             "🔹 문제: {question}\n"
             "🔹 기존 해설: {explanation}\n\n"
-            "💡 새로운 해설 (HTML 형식 유지, LaTeX 수식은 MathJax로 변환해서 출력):"
+            "💡 새로운 해설 (어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요.):"
         ),
         input_variables=["question", "explanation"]
     )
