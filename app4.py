@@ -1,4 +1,4 @@
-import streamlit as st
+# import streamlit as st
 from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
 from langchain.chat_models import AzureChatOpenAI
 import os
@@ -69,5 +69,5 @@ for index, problem in enumerate(problems):
     
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
     st.markdown("#### ✨ 문제와 해설")
-    # components.html(rendered_html_explanation, height=1000)
-    st.markdown(rendered_html_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
+    components.html(rendered_html_explanation, height=500)
+    # st.markdown(rendered_html_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
