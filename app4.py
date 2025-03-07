@@ -49,9 +49,7 @@ for index, problem in enumerate(problems):
     
     # ✅ 변환된 문제 & 해설 출력
     st.markdown(f"### 📝 문제 {index+1} (ID: {problem['question_id']})")  # ✅ 문항아이디 포함
-    # ✅ 문제를 실제 웹처럼 출력
-    components.html(transformed_question)  
+    st.markdown(transformed_question, unsafe_allow_html=True)  # ✅ 변환된 문제 출력
     
     st.markdown("#### ✨ 새롭게 친절해진 해설")
-    # ✅ 해설도 실제 웹처럼 출력
-    components.html(transformed_explanation)  
+    st.markdown(transformed_explanation, unsafe_allow_html=True)  # ✅ 변환된 해설 출력 
