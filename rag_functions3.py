@@ -67,6 +67,9 @@ def create_rag_chain(explanation_store, pdf_store):
             "🔹 <b>관련 개념 PDF 단원</b><br>{pdf_context}<br>\n"
             "질문: {question}\n"
             "LaTeX 수식이 포함된 HTML 형식으로 답변을 제공하세요."
+            "말투는 초등학년 학생을 가르치듯이 상냥하고 상세하게 설명해주세요."
+            "가지고 있는 자료에서 검색이 불가능한 모르는 질문에 대해서는 모른다고 답해주세요."
+            "반드시 가지고 있는 데이터 안에서만 답변을 생성하고 더 추가적인 부가설명을 붙이지 말아주세요."
         ),
         input_variables=["context", "pdf_context", "question"]
     )
