@@ -3,9 +3,7 @@ from rag_functions4 import load_html_explanation_data, generate_detailed_explana
 from langchain.chat_models import AzureChatOpenAI
 import os
 
-os.environ["deployment_name"] = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
 os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
-os.environ["openai_api_version"] = "2024-05-13"
 os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
 
 # ✅ 파일 경로 설정
@@ -17,10 +15,8 @@ problems = load_html_explanation_data(csv_path)
 
 # ✅ GPT 모델 설정
 llm = AzureChatOpenAI(
-    deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
-    openai_api_base=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    deployment_name="cats-aieng-prod-gpt4o-2024-05-13",
     openai_api_version="2024-05-13",
-    openai_api_key=os.getenv("AZURE_OPENAI_API_KEY"),
     temperature=1.0
 )
 
