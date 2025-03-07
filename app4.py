@@ -26,7 +26,7 @@ llm = AzureChatOpenAI(
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
 html_template = """
-    <!DOCTYPE html>
+        <!DOCTYPE html>
     <html lang="ko">
     <head>
         <meta charset="UTF-8">
@@ -43,7 +43,7 @@ html_template = """
         <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </head>
     <body>
-        <p>{converted_text}</p>
+        <p>{{ converted_text | safe }}</p>
     </body>
     </html>
 """
