@@ -7,7 +7,7 @@ os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
 os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
 
 # ✅ 파일 경로 설정
-csv_path = "./qbank_quest_danbi.csv"
+csv_path = "./question20.csv"
 
 # ✅ 데이터 로드
 st.sidebar.header("📂 데이터 로딩 중...")
@@ -40,7 +40,7 @@ st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인�
 
 # ✅ 문제 & GPT 해설 출력
 for index, problem in enumerate(problems):
-    st.markdown(f"### 📝 문제 {index+1}")
+    st.markdown(f"### 📝 문제 {index+1} (ID: {problem['question_id']})")
     st.markdown(problem["question"], unsafe_allow_html=True)  # HTML 문제 출력
     
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
