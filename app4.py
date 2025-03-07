@@ -2,7 +2,7 @@ import streamlit as st
 from rag_functions4 import load_html_explanation_data, create_rag_chain
 
 # ✅ 파일 경로 설정
-csv_path = "qbank_quest_danbi.csv"
+csv_path = "./qbank_quest_danbi.csv"
 
 # ✅ 데이터 로드
 st.sidebar.header("📂 데이터 로딩 중...")
@@ -19,12 +19,11 @@ for index, problem in enumerate(problems):
     st.markdown(f"### 📝 문제 {index + 1}")
     st.markdown(problem["question"], unsafe_allow_html=True)  # HTML 문제 출력
 
-    with st.spinner(f"🔍 GPT가 문제 {index + 1} 해설을 생성 중..."):
+    with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         response = llm_chain.run({
-            "question": problem["question"],
-            "explanation": problem["explanation"],
-            "new_explanation": ""
+            "context": problem["explanation"],  # ✅ 기존 해설을 context에 넣음
+            "question": problem["question"]
         })
-
+    
     st.markdown("#### ✨ 새롭게 친절해진 해설")
     st.markdown(response, unsafe_allow_html=True)  # GPT 변환 해설 출력
