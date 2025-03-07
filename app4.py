@@ -47,7 +47,7 @@ html_template = """
     </body>
     </html>
 """
-st.components.v1.html(mathjax_script, height=0)
+# st.components.v1.html(mathjax_script, height=0)
 
 st.title("📘 AI 수학 문제 해설 도우미")
 st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인하세요!")
