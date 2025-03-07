@@ -1,4 +1,4 @@
-# import streamlit as st
+import streamlit as st
 from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
 from langchain.chat_models import AzureChatOpenAI
 import os
