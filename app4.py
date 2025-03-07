@@ -24,9 +24,14 @@ llm = AzureChatOpenAI(
     temperature=temperature
 )
 
-# ✅ `![이미지](URL)` 형식을 `<img>` 태그로 변환하는 함수
-def convert_markdown_images_to_html(text):
-    return re.sub(r"!\[(.*?)\]\((.*?)\)", r'<img src="\2" alt="\1" style="max-width: 100%; height: auto;">', text)
+# ✅ 문제에서 이미지 URL 추출하는 함수
+def extract_image_from_text(text):
+    image_pattern = r"!\[.*?\]\((.*?)\)"
+    images = re.findall(image_pattern, text)
+    text_without_images = re.sub(image_pattern, "", text).strip()
+    
+    return images, text_without_images
+
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
 html_template = """
@@ -96,6 +101,12 @@ st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인�
 # ✅ 문제 & GPT 해설 출력
 for index, problem in enumerate(problems):
     st.markdown(f"### 📝 문제 {index + 1} (ID: {problem['question_id']})")  # ✅ 문항아이디 포함
+
+    # ✅ 문제에서 이미지 추출하여 문항 ID 아래에 먼저 표시
+    images, problem_text = extract_image_from_text(problem["question"])
+    
+    for img in images:
+        st.image(img, use_column_width=True)  # ✅ 문제에서 추출된 이미지 바로 출력
     
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
