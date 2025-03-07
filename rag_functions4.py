@@ -41,12 +41,12 @@ def load_html_explanation_data(file_path):
 def refine_question(llm, question):
     prompt_template = PromptTemplate(
         template=(
-           "다음 수학 문제를 웹에서 보기 편한 형식으로 변환해 주세요. "
-        "수식을 깔끔하게 정리하고, 필요할 경우 단위를 명확히 표시하세요. "
-        "HTML 태그를 유지하면서도 사용자 경험을 고려하여 적절하게 배치해 주세요. "
+           "다음 수학 문제를 웹에서 보기 편한 형식으로 변환해 주세요."
+        "수식을 깔끔하게 정리하고, 필요할 경우 단위를 명확히 표시하세요."
+        "html 태그가 코드처럼 보이지 않고 실제로 렌더링 되도록 해주세요."
         "불필요한 LaTeX 명령어는 제거하고, MathJax를 사용하여 웹에서 잘 보이도록 변환해 주세요.\n\n"
         "{question}\n\n"
-        "💡 변환된 문제 (웹에서 보기 쉽게 최적화된 HTML + LaTeX 수식 적용):"
+        "💡 변환된 문제 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
         ),
         input_variables=["question"]
     )
@@ -59,11 +59,10 @@ def refine_explanation(llm, explanation):
     prompt_template = PromptTemplate(
         template=(
              "다음 해설을 웹에서 보기 쉽게 변환하고, 초등학생도 이해할 수 있도록 친절하고 상세하게 설명해주세요. "
-        "수식을 정리하고, 필요할 경우 개념을 한 번 더 강조하여 쉽게 이해할 수 있도록 작성하세요. "
-        "HTML 태그를 유지하면서도 사용자 경험을 고려하여 적절하게 배치해 주세요. "
+        "html 태그가 코드처럼 보이지 않고 실제로 렌더링 되도록 해주세요."
         "불필요한 LaTeX 명령어는 제거하고, MathJax를 사용하여 웹에서 잘 보이도록 변환해 주세요.\n\n"
         "{explanation}\n\n"
-        "💡 변환된 해설 (웹에서 보기 쉽게 최적화된 HTML + LaTeX 수식 적용):"
+        "💡 변환된 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
         ),
         input_variables=["explanation"]
     )
