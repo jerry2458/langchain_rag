@@ -4,26 +4,49 @@ import pandas as pd
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
-# ✅ OpenAI API 키 설정
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["deployment_name"] = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
-os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
-os.environ["openai_api_version"] = "2024-05-13"
-os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
-
 # ✅ (1) LaTeX 수식을 MathJax-friendly HTML로 변환
+# def convert_latex_to_mathjax(text):
+#     if not isinstance(text, str):
+#         return text  # 빈 데이터가 들어올 경우 그대로 반환
+    
+#     latex_regex = re.compile(r'\\\((.*?)\\\)')  # \( ... \) 형태 감지
+    
+#     def replace_latex(match):
+#         latex_code = match.group(1)
+#         return f'<span class="mathjax">\\({latex_code}\\)</span>'
+    
+#     return latex_regex.sub(replace_latex, text)
+
 def convert_latex_to_mathjax(text):
     if not isinstance(text, str):
-        return text  # 빈 데이터가 들어올 경우 그대로 반환
+        return text  # 빈 데이터는 그대로 반환
+
+    # ✅ \text{내용} 제거 (내용만 남기고 변환)
+    text = re.sub(r'\\text\{(.*?)\}', r'\1', text)
+
+    # ✅ \( ... \) 인라인 수식 변환
+    text = re.sub(r'\\\((.*?)\\\)', r'<span class="mathjax">\\(\1\\)</span>', text)
     
-    latex_regex = re.compile(r'\\\((.*?)\\\)')  # \( ... \) 형태 감지
-    
-    def replace_latex(match):
-        latex_code = match.group(1)
-        return f'<span class="mathjax">\\({latex_code}\\)</span>'
-    
-    return latex_regex.sub(replace_latex, text)
+    # ✅ \[ ... \] 블록 수식 변환
+    text = re.sub(r'\\\[(.*?)\\\]', r'<div class="mathjax">\\[\1\\]</div>', text)
+
+    # ✅ $$ ... $$ 블록 수식 변환
+    text = re.sub(r'\$\$(.*?)\$\$', r'<div class="mathjax">\\[\1\\]</div>', text)
+
+    # ✅ 수학 기호 변환 (\pi, \times, \approx 등)
+    text = text.replace("\\pi", "π")
+    text = text.replace("\\times", "×")
+    text = text.replace("\\approx", "≈")
+
+    # ✅ 불필요한 LaTeX 명령어 제거
+    text = text.replace("\\displaystyle", "").replace("\\mathstrut", "")
+
+    # ✅ \boxed{} 변환
+    text = re.sub(r'\\boxed\{(.*?)\}', r'<span class="mathjax">\\(\1\\)</span>', text)
+
+    return text
+
+
 
 # ✅ (2) HTML 형식의 문제 및 해설 데이터 로드 (LaTeX 변환 적용)
 def load_html_explanation_data(file_path):
