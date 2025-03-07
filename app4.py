@@ -24,6 +24,10 @@ llm = AzureChatOpenAI(
     temperature=temperature
 )
 
+# ✅ `![이미지](URL)` 형식을 `<img>` 태그로 변환하는 함수
+def convert_markdown_images_to_html(text):
+    return re.sub(r"!\[(.*?)\]\((.*?)\)", r'<img src="\2" alt="\1" style="max-width: 100%; height: auto;">', text)
+
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
 html_template = """
 <!DOCTYPE html>
@@ -62,8 +66,11 @@ for index, problem in enumerate(problems):
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
     
-    
+    # ✅ 이미지 변환 적용
+    detailed_explanation = convert_markdown_images_to_html(detailed_explanation)
+
+    # ✅ MathJax와 이미지가 포함된 HTML 변환 적용
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
+
     st.markdown("#### ✨ 문제와 해설")
-    components.html(rendered_html_explanation, height=1000)
-    # st.markdown(rendered_html_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
+    components.html(rendered_html_explanation, height=500)
