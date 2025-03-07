@@ -1,6 +1,12 @@
 import streamlit as st
 from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
 from langchain.chat_models import AzureChatOpenAI
+import os
+
+os.environ["deployment_name"] = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
+os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
+os.environ["openai_api_version"] = "2024-05-13"
+os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
 
 # ✅ 파일 경로 설정
 csv_path = "./qbank_quest_danbi.csv"
