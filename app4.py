@@ -16,7 +16,7 @@ problems = load_html_explanation_data(csv_path)
 # ✅ GPT 모델 설정
 llm = AzureChatOpenAI(
     deployment_name="cats-aieng-prod-gpt4o-2024-05-13",
-    openai_api_version="2024-05-13",
+    openai_api_version="2024-05-01-preview",
     temperature=1.0
 )
 
