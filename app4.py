@@ -26,16 +26,26 @@ llm = AzureChatOpenAI(
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
 mathjax_script = """
-<script>
-MathJax = {
-    tex: { inlineMath: [['$', '$'], ['\\\\(', '\\\\)']] },
-    svg: { fontCache: 'global' }
-};
-</script>
-<script type="text/javascript" async
-  src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LaTeX 변환</title>
+        <script>
+            window.onload = function() {
+                if (window.MathJax) {
+                    MathJax.typeset();
+                }
+            };
+        </script>
+        <script id="MathJax-script" async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <p>{{ converted_text | safe }}</p>
+    </body>
+    </html>
 """
 st.components.v1.html(mathjax_script, height=0)
 
