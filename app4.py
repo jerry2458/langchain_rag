@@ -45,14 +45,48 @@ html_template = """
     </script>
     <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            text-align: justify;
+            margin: 20px;
+        }}
+        .container {{
+            max-width: 800px;
+            margin: auto;
+        }}
+        h2 {{
+            color: #1E88E5;
+            border-bottom: 2px solid #1E88E5;
+            padding-bottom: 5px;
+        }}
+        .content {{
+            font-size: 18px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            white-space: pre-line;  /* ✅ 줄바꿈 유지 */
+            word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
+        }}
+        img {{
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }}
+    </style>
 </head>
 <body>
-    <div style="font-size: 18px; line-height: 1.6;">
-        {converted_text}
+    <div class="container">
+        <div class="content">
+            {converted_text}
+        </div>
     </div>
 </body>
 </html>
 """
+
 
 # st.components.v1.html(mathjax_script, height=0)
 
