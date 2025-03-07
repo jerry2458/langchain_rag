@@ -41,7 +41,7 @@ def load_html_explanation_data(file_path):
 def refine_question(llm, question):
     prompt_template = PromptTemplate(
         template=(
-           "다음 문제를 원본 내용 그대로 출력하되 사용자가 보기 편하게 보두 변환해서 출력해주세요.:\n\n”
+           "다음 문제를 원본 내용 그대로 출력하되 사용자가 보기 편하게 보두 변환해서 출력해주세요.:\n\n"
            "🔹 문제: {question}\n"
            "💡 변환된 문제 (어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요.):"
         ),
@@ -56,7 +56,7 @@ def refine_explanation(llm, explanation):
     prompt_template = PromptTemplate(
         template=(
              "다음 해설을 웹에서 보기 쉽게 변환하고, 초등학생도 이해할 수 있도록 친절하고 상세하게 설명해주세요. "
-             "{explanation}\n\n"
+             "🔹 해설: {explanation}\n\n"
              "💡 변환된 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
         ),
         input_variables=["explanation"]
