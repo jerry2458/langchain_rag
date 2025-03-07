@@ -25,10 +25,14 @@ llm = AzureChatOpenAI(
     temperature=temperature
 )
 
-# ✅ 문제에서 이미지 URL 추출하는 함수
 def extract_image_from_text(text):
-    image_pattern = r"!\[.*?\]\((.*?)\)"
-    images = re.findall(image_pattern, text)
+    """
+    HTML 태그 <img src="..."> 에서 이미지 URL만 추출하여 반환
+    """
+    image_pattern = r'<img[^>]+src="([^">]+)"'  # ✅ HTML <img src="URL">에서 URL만 추출
+    images = re.findall(image_pattern, text)  # ✅ 모든 이미지 URL 리스트 추출
+    
+    # ✅ 이미지 태그 제거한 텍스트 반환
     text_without_images = re.sub(image_pattern, "", text).strip()
     
     return images, text_without_images
