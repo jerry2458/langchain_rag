@@ -7,6 +7,10 @@ from langchain.prompts import PromptTemplate
 # ✅ OpenAI API 키 설정
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["deployment_name"] = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
+os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
+os.environ["openai_api_version"] = "2024-05-13"
+os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
 
 # ✅ (1) LaTeX 수식을 MathJax-friendly HTML로 변환
 def convert_latex_to_mathjax(text):
