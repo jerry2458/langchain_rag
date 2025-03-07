@@ -27,7 +27,7 @@ def convert_latex_to_mathjax(text):
         latex_code = match.group(1)
         return f'<span class="mathjax">\\({latex_code}\\)</span>'
 
-    return latex_regex.sub(replace_latex, text)
+    return latex_regex.sub(replace_latex, str(text))
 
 
 # ✅ (2) HTML 형식의 문제 및 해설 데이터 로드 (LaTeX 변환 적용)
