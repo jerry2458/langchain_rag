@@ -25,7 +25,7 @@ llm = AzureChatOpenAI(
 )
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
-mathjax_script = """
+html_template = """
     <!DOCTYPE html>
     <html lang="ko">
     <head>
@@ -60,4 +60,6 @@ for index, problem in enumerate(problems):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
     
     st.markdown("#### ✨ 문제와 해설")
-    st.markdown(detailed_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
+    rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
+    components.html(rendered_html_explanation, height=1000)
+    # st.markdown(detailed_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
