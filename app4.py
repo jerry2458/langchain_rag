@@ -36,19 +36,19 @@ MathJax = {
 st.components.v1.html(mathjax_script, height=0)
 
 st.title("📘 AI 수학 문제 해설 도우미")
-st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인하세요!")
+st.write("📢 GPT가 변환한 문제와 친절한 해설을 한 개씩 출력합니다.")
 
-# ✅ 문제 & 해설 변환 수행 (한 번만 GPT 실행)
-converted_problems = []
-with st.spinner("🔍 GPT가 모든 문제와 해설을 변환하는 중..."):
-    for problem in problems:
-        transformed_question = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
-        converted_problems.append({
-            "question_id": problem["question_id"],
-            "question": transformed_question  # ✅ GPT가 변환한 문제 사용
-        })
-
-# ✅ 변환된 문제 출력
-for index, problem in enumerate(converted_problems):
+# ✅ 문제 & 해설 변환 수행 (각 문제마다 한 번씩 GPT 실행)
+for index, problem in enumerate(problems):
+    with st.spinner(f"🔍 GPT가 문제 {index+1} 변환 중..."):
+        transformed_question = refine_question(llm, problem["question"])
+    
+    with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 변환 중..."):
+        transformed_explanation = refine_explanation(llm, problem["explanation"])
+    
+    # ✅ 변환된 문제 & 해설 출력
     st.markdown(f"### 📝 문제 {index+1} (ID: {problem['question_id']})")  # ✅ 문항아이디 포함
-    st.markdown(problem["question"], unsafe_allow_html=True)  # ✅ 변환된 문제 출력
+    st.markdown(transformed_question, unsafe_allow_html=True)  # ✅ 변환된 문제 출력
+    
+    st.markdown("#### ✨ 새롭게 친절해진 해설")
+    st.markdown(transformed_explanation, unsafe_allow_html=True)  # ✅ 변환된 해설 출력
