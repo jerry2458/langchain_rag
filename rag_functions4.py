@@ -72,14 +72,15 @@ def create_rag_chain():
 
     prompt_template = PromptTemplate(
         template=(
-            "각 문제에 대한 친절한 해설을 제공합니다 (HTML 형식 출력):\n\n"
+            "학생의 질문과 기존 해설을 참고하여, 더 친절한 해설을 제공합니다 (HTML 형식 출력):\n\n"
             "🔹 <b>문제</b><br>{question}<br>\n"
-            "🔹 <b>기존 해설</b><br>{explanation}<br>\n"
-            "🔹 <b>새로운 해설</b><br>{new_explanation}<br>\n"
-            "이전 해설보다 더욱 친절하고 이해하기 쉬운 방식으로 설명해 주세요."
+            "🔹 <b>기존 해설</b><br>{context}<br>\n"
+            "🔹 <b>새로운 해설</b><br>\n"
+            "이전 해설보다 더욱 친절하고 이해하기 쉬운 방식으로 설명해 주세요.\n"
             "HTML과 LaTeX 수식을 유지해 주세요."
         ),
-        input_variables=["question", "explanation", "new_explanation"]
+        input_variables=["context", "question"]
     )
 
     return load_qa_chain(llm, chain_type="stuff", prompt=prompt_template)
+
