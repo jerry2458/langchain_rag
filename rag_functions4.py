@@ -37,17 +37,30 @@ def load_html_explanation_data(file_path):
         })
     return explanations
 
-# ✅ (3) GPT를 이용해 해설을 더 친절한 말투로 변환
-def generate_detailed_explanation(llm, question, explanation):
+# ✅ (3) GPT를 이용해 문제를 정리하는 함수
+def refine_question(llm, question):
     prompt_template = PromptTemplate(
         template=(
-            "다음 문제의 해설을 초등학생도 이해할 수 있도록 친절하게 바꿔주세요:\n\n"
-            "🔹 문제: {question}\n"
-            "🔹 기존 해설: {explanation}\n\n"
-            "💡 새로운 해설 (어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요.):"
+            "다음 문제를 HTML 형식과 LaTeX 수식을 정리하여 깔끔하게 변환해주세요:\n\n"
+            "{question}\n\n"
+            "💡 변환된 문제 (HTML 및 LaTeX 형식 유지):"
         ),
-        input_variables=["question", "explanation"]
+        input_variables=["question"]
     )
 
-    response = llm.predict(prompt_template.format(question=question, explanation=explanation))
-    return convert_latex_to_mathjax(response)  # 변환된 해설을 다시 LaTeX-friendly HTML로 변경
+    response = llm.predict(prompt_template.format(question=question))
+    return convert_latex_to_mathjax(response)  # 변환된 문제를 다시 MathJax-friendly HTML로 변경
+
+# ✅ (4) GPT를 이용해 해설을 친절하고 상세하게 변환하는 함수
+def refine_explanation(llm, explanation):
+    prompt_template = PromptTemplate(
+        template=(
+            "다음 해설을 초등학생도 이해할 수 있도록 친절하고 상세하게 바꿔주세요:\n\n"
+            "{explanation}\n\n"
+            "💡 새로운 해설 (HTML 및 LaTeX 형식 유지, 더욱 친절하고 상세하게 설명):"
+        ),
+        input_variables=["explanation"]
+    )
+
+    response = llm.predict(prompt_template.format(explanation=explanation))
+    return convert_latex_to_mathjax(response)  # 변환된 해설을 다시 MathJax-friendly HTML로 변경
