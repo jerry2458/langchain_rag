@@ -34,6 +34,7 @@ def generate_detailed_explanation(llm, question, explanation):
     prompt_template = PromptTemplate(
         template=(
             "다음 문제의 해설을 초등학생도 이해할 수 있도록 친절하게 바꿔주세요:\n\n"
+            "사용자가 읽을 때 가독성이 좋도록 문장별로 줄바꿈이나 띄어쓰기 등을 잘 지켜주세요.\n\n"
             "🔹 문제: {question}\n"
             "🔹 기존 해설: {explanation}\n\n"
             "💡 새로운 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
