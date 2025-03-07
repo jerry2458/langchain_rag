@@ -41,11 +41,10 @@ st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인�
 
 # ✅ 문제 & GPT 해설 출력
 for index, problem in enumerate(problems):
-    st.markdown(f"### 📝 문제 {index+1}")
-    st.markdown(problem["question"], unsafe_allow_html=True)  # ✅ 문제 출력
+    st.markdown(f"### 📝 문제 {index + 1} (ID: {problem['question_id']})")  # ✅ 문항아이디 포함
     
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
     
-    st.markdown("#### ✨ 새롭게 친절해진 해설")
+    st.markdown("#### ✨ 문제와 해설")
     st.markdown(detailed_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
