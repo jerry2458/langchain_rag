@@ -18,7 +18,7 @@ problems = load_html_explanation_data(csv_path)
 llm = AzureChatOpenAI(
     deployment_name="cats-aieng-prod-gpt4o-2024-05-13",
     openai_api_version="2024-05-01-preview",
-    temperature=1.0
+    temperature=0.2
 )
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
