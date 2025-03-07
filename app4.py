@@ -59,7 +59,8 @@ for index, problem in enumerate(problems):
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
     
-    st.markdown("#### ✨ 문제와 해설")
+    
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
-    components.html(rendered_html_explanation, height=1000)
+    st.markdown("#### ✨ 문제와 해설")
+    components.html(rendered_html_explanation, height=300)
     # st.markdown(detailed_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
