@@ -23,7 +23,7 @@ def convert_latex_to_mathjax(text):
         latex_code = match.group(1)
         return f'<span class="mathjax">\\({latex_code}\\)</span>'
     
-    return latex_regex.sub(replace_latex, str(text))
+    return latex_regex.sub(replace_latex, text)
 
 # ✅ (2) HTML 형식의 문제 및 해설 데이터 로드 (LaTeX 변환 적용)
 def load_html_explanation_data(file_path):
@@ -41,8 +41,10 @@ def load_html_explanation_data(file_path):
 def refine_question(llm, question):
     prompt_template = PromptTemplate(
         template=(
+           "LaTeX 수식은 MathJax로 변환해서 출력해주세요."
+           "어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요."
            "🔹 문제: {question}\n"
-           "💡 변환된 문제 (어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요. LaTeX 수식은 MathJax로 변환해서 출력해주세요.):"
+           "💡 변환된 문제 (어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요.):"
         ),
         input_variables=["question"]
     )
@@ -55,8 +57,10 @@ def refine_explanation(llm, explanation):
     prompt_template = PromptTemplate(
         template=(
              "다음 해설을 초등학생도 이해할 수 있도록 친절하고 상세하게 설명해주세요."
+             "LaTeX 수식은 MathJax로 변환해서 출력해주세요."
+             "어떤 형식이든 사용자가 보기 편하게 모두 변환해서 출력해주세요."
              "🔹 해설: {explanation}\n\n"
-             "💡 변환된 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.LaTeX 수식은 MathJax로 변환해서 출력해주세요.):"
+             "💡 변환된 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
         ),
         input_variables=["explanation"]
     )
