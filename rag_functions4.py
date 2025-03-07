@@ -11,14 +11,18 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # ✅ (1) LaTeX 수식을 MathJax-friendly HTML로 변환
 def convert_latex_to_mathjax(text):
     if not isinstance(text, str):
-        return text  # 빈 데이터는 그대로 반환
+        return text  # 빈 데이터가 들어올 경우 그대로 반환
 
-    # ✅ \(\) 또는 $$ $$ 블록을 MathJax-friendly HTML로 변환
-    text = re.sub(r'\\\((.*?)\\\)', r'<span class="mathjax">\\(\1\\)</span>', text)  # 인라인 수식
-    text = re.sub(r'\\\[(.*?)\\\]', r'<div class="mathjax">\\[\1\\]</div>', text)  # 블록 수식
+    # ✅ \( ... \) 인라인 수식 변환
+    text = re.sub(r'\\\((.*?)\\\)', r'<span class="mathjax">\\(\1\\)</span>', text)
+    
+    # ✅ \[ ... \] 블록 수식 변환
+    text = re.sub(r'\\\[(.*?)\\\]', r'<div class="mathjax">\\[\1\\]</div>', text)
 
-    # ✅ \displaystyle, \text, \boxed{} 처리
+    # ✅ 불필요한 LaTeX 명령어 제거
     text = text.replace("\\displaystyle", "").replace("\\text", "").replace("\\mathstrut", "")
+
+    # ✅ \boxed{} 변환
     text = re.sub(r'\\boxed\{(.*?)\}', r'<span class="mathjax">\\(\1\\)</span>', text)
 
     return text
@@ -29,8 +33,8 @@ def load_html_explanation_data(file_path):
     explanations = []
     for _, row in df.iterrows():
         explanations.append({
-            "question": convert_latex_to_mathjax(row["문제"]),
-            "explanation": convert_latex_to_mathjax(row["해설"])
+            "question": convert_latex_to_mathjax(row["문제"]),  # ✅ 문제 변환
+            "explanation": convert_latex_to_mathjax(row["해설"])  # ✅ 해설 변환
         })
     return explanations
 
@@ -47,4 +51,6 @@ def generate_detailed_explanation(llm, question, explanation):
     )
 
     response = llm.predict(prompt_template.format(question=question, explanation=explanation))
-    return convert_latex_to_mathjax(response)  # 변환된 해설을 다시 LaTeX-friendly HTML로 변경
+    
+    # ✅ GPT가 생성한 해설도 다시 LaTeX 변환 적용
+    return convert_latex_to_mathjax(response)
