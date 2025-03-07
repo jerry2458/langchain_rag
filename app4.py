@@ -3,6 +3,7 @@ from rag_functions4 import load_html_explanation_data, generate_detailed_explana
 from langchain.chat_models import AzureChatOpenAI
 import os
 import streamlit.components.v1 as components
+import re
 
 os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
 os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
