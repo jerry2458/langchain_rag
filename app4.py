@@ -2,6 +2,7 @@ import streamlit as st
 from rag_functions4 import load_html_explanation_data, refine_question, refine_explanation
 from langchain.chat_models import AzureChatOpenAI
 import os
+import streamlit.components.v1 as components
 
 os.environ["openai_api_base"] = os.getenv("AZURE_OPENAI_ENDPOINT")
 os.environ["openai_api_key"] = os.getenv("AZURE_OPENAI_API_KEY")
@@ -48,7 +49,9 @@ for index, problem in enumerate(problems):
     
     # ✅ 변환된 문제 & 해설 출력
     st.markdown(f"### 📝 문제 {index+1} (ID: {problem['question_id']})")  # ✅ 문항아이디 포함
-    st.markdown(transformed_question, unsafe_allow_html=True)  # ✅ 변환된 문제 출력
+    # ✅ 문제를 실제 웹처럼 출력
+    components.html(transformed_question)  
     
     st.markdown("#### ✨ 새롭게 친절해진 해설")
-    st.markdown(transformed_explanation, unsafe_allow_html=True)  # ✅ 변환된 해설 출력
+    # ✅ 해설도 실제 웹처럼 출력
+    components.html(transformed_explanation)  
