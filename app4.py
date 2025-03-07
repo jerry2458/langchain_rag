@@ -26,27 +26,30 @@ llm = AzureChatOpenAI(
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
 html_template = """
-        <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LaTeX 변환</title>
-        <script>
-            window.onload = function() {
-                if (window.MathJax) {
-                    MathJax.typeset();
-                }
-            };
-        </script>
-        <script id="MathJax-script" async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-        <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    </head>
-    <body>
-        <p>{{ converted_text | safe }}</p>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX 변환</title>
+    <script>
+        window.onload = function() {{
+            if (window.MathJax) {{
+                MathJax.typeset();
+            }}
+        }};
+    </script>
+    <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div style="font-size: 18px; line-height: 1.6;">
+        {converted_text}
+    </div>
+</body>
+</html>
 """
+
 # st.components.v1.html(mathjax_script, height=0)
 
 st.title("📘 AI 수학 문제 해설 도우미")
