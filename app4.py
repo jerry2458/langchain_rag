@@ -1,9 +1,9 @@
 import streamlit as st
-from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
+from rag_functions import load_html_explanation_data, generate_detailed_explanation
 from langchain.chat_models import ChatOpenAI
 
 # ✅ 파일 경로 설정
-csv_path = "qbank_quest_danbi.csv"
+csv_path = "./qbank_quest_danbi.csv"
 
 # ✅ 데이터 로드
 st.sidebar.header("📂 데이터 로딩 중...")
@@ -33,10 +33,10 @@ st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인�
 # ✅ 문제 & GPT 해설 출력
 for index, problem in enumerate(problems):
     st.markdown(f"### 📝 문제 {index+1}")
-    st.markdown(problem["question"], unsafe_allow_html=True)  # ✅ 문제 출력
+    st.markdown(problem["question"], unsafe_allow_html=True)  # HTML 문제 출력
     
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
     
     st.markdown("#### ✨ 새롭게 친절해진 해설")
-    st.markdown(detailed_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
+    st.markdown(detailed_explanation, unsafe_allow_html=True)  # GPT 변환 해설 출력
