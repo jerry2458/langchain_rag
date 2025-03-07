@@ -14,11 +14,14 @@ csv_path = "./question20.csv"
 st.sidebar.header("📂 데이터 로딩 중...")
 problems = load_html_explanation_data(csv_path)
 
+# ✅ 사용자 정의 슬라이더 추가 (temperature 값 조절)
+temperature = st.sidebar.slider("🌡️ GPT 창의성 조절 (Temperature)", min_value=0.0, max_value=1.0, value=0.5, step=0.1)
+
 # ✅ GPT 모델 설정
 llm = AzureChatOpenAI(
     deployment_name="cats-aieng-prod-gpt4o-2024-05-13",
     openai_api_version="2024-05-01-preview",
-    temperature=0.2
+    temperature=temperature
 )
 
 # ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
