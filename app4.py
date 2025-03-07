@@ -111,7 +111,7 @@ for index, problem in enumerate(problems):
     images, problem_text = extract_image_from_text(problem["question"])
     
     for img in images:
-        st.image(img, use_column_width=True)  # ✅ 문제에서 추출된 이미지 바로 출력
+        st.image(img)  # ✅ 문제에서 추출된 이미지 바로 출력
     
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
