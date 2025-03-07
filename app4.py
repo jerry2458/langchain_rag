@@ -63,7 +63,7 @@ html_template = """
             margin: 20px;
         }}
         .container {{
-            max-width: 800px;
+            max-width: 2000px;
             margin: auto;
         }}
         h2 {{
@@ -72,7 +72,7 @@ html_template = """
             padding-bottom: 5px;
         }}
         .content {{
-            font-size: 10px;
+            font-size: 12px;
             padding: 12px;
             background: #f9f9f9;
             border-radius: 10px;
