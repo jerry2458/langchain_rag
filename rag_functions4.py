@@ -11,15 +11,17 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # ✅ (1) LaTeX 수식을 MathJax-friendly HTML로 변환
 def convert_latex_to_mathjax(text):
     if not isinstance(text, str):
-        return text  # 빈 데이터가 들어올 경우 그대로 반환
-    
-    latex_regex = re.compile(r'\\\((.*?)\\\)')  # \( ... \) 형태 감지
-    
-    def replace_latex(match):
-        latex_code = match.group(1)
-        return f'<span class="mathjax">\\({latex_code}\\)</span>'
-    
-    return latex_regex.sub(replace_latex, text)
+        return text  # 빈 데이터는 그대로 반환
+
+    # ✅ \(\) 또는 $$ $$ 블록을 MathJax-friendly HTML로 변환
+    text = re.sub(r'\\\((.*?)\\\)', r'<span class="mathjax">\\(\1\\)</span>', text)  # 인라인 수식
+    text = re.sub(r'\\\[(.*?)\\\]', r'<div class="mathjax">\\[\1\\]</div>', text)  # 블록 수식
+
+    # ✅ \displaystyle, \text, \boxed{} 처리
+    text = text.replace("\\displaystyle", "").replace("\\text", "").replace("\\mathstrut", "")
+    text = re.sub(r'\\boxed\{(.*?)\}', r'<span class="mathjax">\\(\1\\)</span>', text)
+
+    return text
 
 # ✅ (2) HTML 형식의 문제 및 해설 데이터 로드 (LaTeX 변환 적용)
 def load_html_explanation_data(file_path):
