@@ -108,7 +108,7 @@ for index, problem in enumerate(problems):
     images, problem_text = extract_image_from_text(problem["question"])
     
     for img in images:
-        st.image(img, use_container_width=True)  # ✅ 문제에서 추출된 이미지 바로 출력
+        st.image(img, use_container_width=False)  # ✅ 문제에서 추출된 이미지 바로 출력
 
     # ✅ GPT로 문제 변환
     with st.spinner(f"🔍 GPT가 문제 {index+1}를 가독성 좋게 변환 중..."):
