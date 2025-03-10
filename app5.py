@@ -14,13 +14,14 @@ model_options = {
         "api_version": os.getenv("AZURE_GPT4_API_VERSION"),
         "azure_endpoint": os.getenv("AZURE_GPT4_ENDPOINT"),
         "api_key": os.getenv("AZURE_GPT4_API_KEY")
-    },
-    "GPT-o3-mini": {
-        "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),
-        "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
-        "azure_endpoint": os.getenv("AZURE_GPTo3_ENDPOINT"),
-        "api_key": os.getenv("AZURE_GPTo3_API_KEY")
     }
+    # ,
+    # "GPT-o3-mini": {
+    #     "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),
+    #     "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
+    #     "azure_endpoint": os.getenv("AZURE_GPTo3_ENDPOINT"),
+    #     "api_key": os.getenv("AZURE_GPTo3_API_KEY")
+    # }
 }
 
 # ✅ 모델 선택 UI
