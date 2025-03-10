@@ -45,19 +45,18 @@ def generate_question(llm, question):
 
 
 # ✅ (3) GPT를 이용해 해설을 더 친절한 말투로 변환
-def generate_detailed_explanation(llm, question, explanation):
+def generate_detailed_explanation(llm, explanation):
     prompt_template = PromptTemplate(
         template=(
             "다음 문제의 해설을 초등학생도 이해할 수 있도록 친절하게 바꿔주세요:\n\n"
             "사용자가 읽을 때 가독성이 좋도록 문장별로 줄바꿈이나 띄어쓰기 등을 잘 지켜주세요.\n\n"
-            "🔹 문제: {question}\n"
             "🔹 기존 해설: {explanation}\n\n"
             "💡 새로운 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
         ),
-        input_variables=["question", "explanation"]
+        input_variables=["explanation"]
     )
 
-    response = llm.predict(prompt_template.format(question=question, explanation=explanation))
+    response = llm.predict(prompt_template.format(explanation=explanation))
     
     # ✅ GPT가 생성한 해설도 다시 LaTeX 변환 적용
     return convert_latex_to_mathjax(response)
