@@ -63,7 +63,7 @@ else:
         openai_api_version=selected_settings["api_version"],
         openai_api_base=selected_settings["api_base"],
         openai_api_key=selected_settings["api_key"],
-        temperature=1
+        temperature=None
     )
 
 # ✅ LangChain 내부적으로 `temperature`가 포함되지 않도록 설정 확인
