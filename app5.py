@@ -12,13 +12,13 @@ model_options = {
     "GPT-4": {
         "deployment_name": os.getenv("AZURE_GPT4_DEPLOYMENT_NAME"),
         "api_version": os.getenv("AZURE_GPT4_API_VERSION"),
-        "api_base": os.getenv("AZURE_GPT4_ENDPOINT"),
+        "azure_endpoint": os.getenv("AZURE_GPT4_ENDPOINT"),
         "api_key": os.getenv("AZURE_GPT4_API_KEY")
     },
     "GPT-o3-mini": {
         "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),
         "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
-        "api_base": os.getenv("AZURE_GPTo3_ENDPOINT"),
+        "azure_endpoint": os.getenv("AZURE_GPTo3_ENDPOINT"),
         "api_key": os.getenv("AZURE_GPTo3_API_KEY")
     }
 }
