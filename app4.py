@@ -60,8 +60,9 @@ html_template = """
             font-family: Arial, sans-serif;
             line-height: 1.6;
             text-align: justify;
-            white-space: pre-line;
-            word-wrap: break-word;
+            margin: 10px;
+            white-space: pre-line; /* ✅ 줄바꿈 유지 */
+            word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
         }}
         img {{
             max-width: 100%;
