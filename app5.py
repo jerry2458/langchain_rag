@@ -54,7 +54,7 @@ if selected_settings["supports_temperature"]:
         openai_api_version=selected_settings["api_version"],
         openai_api_base=selected_settings["api_base"],
         openai_api_key=selected_settings["api_key"],
-        temperature=0.5  # ✅ GPT-4는 temperature 사용 가능
+        temperature=0  # ✅ GPT-4는 temperature 사용 가능
     )
 else:
     # ✅ GPT-o3-mini의 경우 `temperature`를 아예 전달하지 않도록 설정
@@ -63,7 +63,7 @@ else:
         openai_api_version=selected_settings["api_version"],
         openai_api_base=selected_settings["api_base"],
         openai_api_key=selected_settings["api_key"],
-        temperature=0
+        temperature=1
     )
 
 # ✅ LangChain 내부적으로 `temperature`가 포함되지 않도록 설정 확인
