@@ -37,11 +37,6 @@ def generate_detailed_explanation(llm, question, explanation, answer, user_promp
         input_variables=["user_prompt", "question", "explanation", "answer"]
     )
 
-    response = llm.predict(prompt_template.format(
-        user_prompt=user_prompt,
-        question=question,
-        explanation=explanation,
-        answer=answer
-    ))
-
-    return response  # 변환된 해설을 다시 MathJax-friendly HTML로 변경
+    response = llm.generate([[HumanMessage(content=formatted_prompt)]])
+    
+    return response.generations[0][0].text  # ✅ 응답 객체에서 텍스트만 추출
