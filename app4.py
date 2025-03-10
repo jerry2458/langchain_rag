@@ -92,7 +92,7 @@ for index, problem in enumerate(problems):
 
     # ✅ GPT로 문제 변환
     with st.spinner(f"🔍 GPT가 문제 {index+1}를 가독성 좋게 변환 중..."):
-        detailed_question = generate_question(llm, problem_text)
+        detailed_question = generate_question(llm, problem["question"])
 
     # ✅ MathJax 적용된 변환된 문제 출력
     rendered_html_question = html_template.format(converted_text=detailed_question)
@@ -103,7 +103,7 @@ for index, problem in enumerate(problems):
 
     # ✅ GPT 해설 생성
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
-        detailed_explanation = generate_detailed_explanation(llm, problem_text, problem["explanation"])
+        detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
 
     # ✅ 개행(\n) 변환 적용
     detailed_explanation = convert_newlines_to_html(detailed_explanation)
