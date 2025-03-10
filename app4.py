@@ -80,7 +80,7 @@ html_template = """
             word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
         }}
         img {{
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
             display: block;
             margin: 10px auto;
