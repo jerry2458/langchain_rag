@@ -13,7 +13,7 @@ def generate_detailed_explanation(llm, question, explanation, answer, user_promp
             "🔹 문제: {question}\n"
             "🔹 기존 해설: {explanation}\n"
             "🔹 정답: {answer}\n\n"
-            "💡 AI가 변환한 해설(HTML 포맷 그대로 유지, 수식은 LATEX 포맷 그대로 유지):"
+            "💡 AI가 변환한 해설(사용자가 읽기 편한 HTML 및 LaTeX 코드로 출력해주세요.):"
         ),
         input_variables=["user_prompt", "question", "explanation", "answer"]
     )
