@@ -54,6 +54,7 @@ user_prompt = st.sidebar.text_area("프롬프트 수정", default_prompt, height
 llm = AzureChatOpenAI(
     deployment_name=selected_settings["deployment_name"],
     openai_api_version=selected_settings["api_version"],
+    openai_api_key=selected_settings["api_key"],
     temperature=0.2
 )
 
