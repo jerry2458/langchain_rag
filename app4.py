@@ -132,7 +132,7 @@ for index, problem in enumerate(problems):
 
     # ✅ MathJax가 적용된 해설을 HTML로 변환
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
-    estimated_height_explanation = max(300 , len(rendered_html_explanation) // 4 )
+    estimated_height_explanation = len(rendered_html_explanation)
 
     st.markdown("#### ✨ 해설")
     components.html(rendered_html_explanation, height=estimated_height_explanation)  # ✅ 해설 높이 자동 조절
