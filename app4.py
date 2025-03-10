@@ -51,6 +51,15 @@ html_template = """
             if (window.MathJax) {{
                 MathJax.typeset();
             }}
+            setTimeout(() => {{
+                parent.postMessage(
+                    {{
+                        type: "streamlitResize",
+                        height: document.documentElement.scrollHeight
+                    }},
+                    "*"
+                );
+            }}, 500);  // ✅ 0.5초 후 높이 자동 조정
         }};
     </script>
     <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -58,37 +67,23 @@ html_template = """
     <style>
         body {{
             font-family: Arial, sans-serif;
-            line-height: 1.6;
+            line-height: 1.4;
             text-align: justify;
-            margin: 10px;
+            margin: 0;
+            padding: 10px;
         }}
         .container {{
-            max-width: auto;
+            max-width: 100%;
             margin: 0 auto;
-        }}
-        h2 {{
-            color: #1E88E5;
-            border-bottom: 2px solid #1E88E5;
-            padding-bottom: 5px;
-            margin-bottom: 10px;  /* ✅ 제목과 본문 간격 줄이기 */
+            padding: 5px 10px;
         }}
         .content {{
             font-size: 15px;
-            padding: 10px;
+            padding: 5px 10px;
             background: #f9f9f9;
-            border-radius: 10px;
-            white-space: pre-line;  /* ✅ 줄바꿈 유지 */
-            word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
-            margin-bottom: 10px;  /* ✅ 본문 간 간격 줄이기 */
-        }}
-        p {{
-            margin: 5px 0;  /* ✅ 각 문단 간의 여백 최소화 */
-        }}
-        img {{
-            max-width: 80%;
-            height: auto;
-            display: block;
-            margin: 5px auto;
+            border-radius: 5px;
+            white-space: pre-line;
+            word-wrap: break-word;
         }}
     </style>
 </head>
@@ -124,7 +119,7 @@ for index, problem in enumerate(problems):
     estimated_height_question = len(rendered_html_question) // 5
 
     st.markdown("#### 🏫 문제")
-    components.html(rendered_html_question, height=estimated_height_question)  # ✅ 문제 높이 자동 조절
+    components.html(rendered_html_question, height=0, scrolling=True)  # ✅ 문제 높이 자동 조절
 
     # ✅ GPT 해설 생성
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
@@ -135,4 +130,4 @@ for index, problem in enumerate(problems):
     estimated_height_explanation = len(rendered_html_explanation)
 
     st.markdown("#### ✨ 해설")
-    components.html(rendered_html_explanation, height=estimated_height_explanation)  # ✅ 해설 높이 자동 조절
+    components.html(rendered_html_explanation, height=0, scrolling=True)  # ✅ 해설 높이 자동 조절
