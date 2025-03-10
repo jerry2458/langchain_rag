@@ -17,7 +17,7 @@ model_options = {
         "supports_temperature": True  # ✅ GPT-4는 temperature 지원
     },
     "GPT-o3-mini": {
-        "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),  # ✅ 환경 변수명 수정 (오타 확인 필요)
+        "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),
         "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
         "api_base": os.getenv("AZURE_GPTo3_ENDPOINT"),
         "api_key": os.getenv("AZURE_GPTo3_API_KEY"),
@@ -47,7 +47,7 @@ default_prompt = (
 )
 user_prompt = st.sidebar.text_area("프롬프트 수정", default_prompt, height=150)
 
-# ✅ LLM 모델 설정 (GPT-o3-mini는 temperature=None을 명시적으로 설정)
+# ✅ LLM 모델 설정 (GPT-o3-mini는 temperature 인수를 완전히 제거)
 if selected_settings["supports_temperature"]:
     llm = AzureChatOpenAI(
         deployment_name=selected_settings["deployment_name"],
@@ -57,12 +57,20 @@ if selected_settings["supports_temperature"]:
         temperature=0.5  # ✅ GPT-4는 temperature 사용 가능
     )
 else:
+    # ✅ GPT-o3-mini의 경우 `temperature`를 아예 전달하지 않도록 설정
     llm = AzureChatOpenAI(
         deployment_name=selected_settings["deployment_name"],
         openai_api_version=selected_settings["api_version"],
         openai_api_base=selected_settings["api_base"],
         openai_api_key=selected_settings["api_key"]
     )
+
+# ✅ LangChain 내부적으로 `temperature`가 포함되지 않도록 설정 확인
+st.sidebar.write("🔍 LLM 설정값 확인")
+st.sidebar.write(f"모델: {selected_model}")
+st.sidebar.write(f"API Base: {selected_settings['api_base']}")
+st.sidebar.write(f"API Version: {selected_settings['api_version']}")
+st.sidebar.write(f"Supports Temperature: {selected_settings['supports_temperature']}")
 
 # ✅ 변환 실행 버튼
 if st.button("🔄 해설 변환 실행"):
