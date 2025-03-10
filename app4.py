@@ -60,30 +60,35 @@ html_template = """
             font-family: Arial, sans-serif;
             line-height: 1.6;
             text-align: justify;
-            margin: 20px;
+            margin: 10px;
         }}
         .container {{
             max-width: auto;
-            margin: auto;
+            margin: 0 auto;
         }}
         h2 {{
             color: #1E88E5;
             border-bottom: 2px solid #1E88E5;
             padding-bottom: 5px;
+            margin-bottom: 10px;  /* ✅ 제목과 본문 간격 줄이기 */
         }}
         .content {{
             font-size: 15px;
-            padding: 15px;
+            padding: 10px;
             background: #f9f9f9;
             border-radius: 10px;
             white-space: pre-line;  /* ✅ 줄바꿈 유지 */
             word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
+            margin-bottom: 10px;  /* ✅ 본문 간 간격 줄이기 */
+        }}
+        p {{
+            margin: 5px 0;  /* ✅ 각 문단 간의 여백 최소화 */
         }}
         img {{
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
             display: block;
-            margin: 10px auto;
+            margin: 5px auto;
         }}
     </style>
 </head>
