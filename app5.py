@@ -61,8 +61,7 @@ else:
         deployment_name=selected_settings["deployment_name"],
         openai_api_version=selected_settings["api_version"],
         openai_api_base=selected_settings["api_base"],
-        openai_api_key=selected_settings["api_key"],
-        temperature=None  # ✅ GPT-o3-mini는 temperature를 아예 명시적으로 None으로 설정
+        openai_api_key=selected_settings["api_key"]
     )
 
 # ✅ 변환 실행 버튼
