@@ -50,8 +50,7 @@ llm = AzureChatOpenAI(
     deployment_name=selected_settings["deployment_name"],
     openai_api_version=selected_settings["api_version"],
     openai_api_base=selected_settings["api_base"],
-    openai_api_key=selected_settings["api_key"],
-    temperature=0.2
+    openai_api_key=selected_settings["api_key"]
 )
 
 # ✅ 변환 실행 버튼
