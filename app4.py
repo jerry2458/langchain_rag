@@ -38,7 +38,7 @@ def extract_image_from_text(text):
     return images, text_without_images
 
 
-# ✅ MathJax 스크립트 추가 (LaTeX 수식 렌더링)
+# ✅ MathJax를 포함한 HTML 템플릿 (컨테이너 제거 및 자동 크기 조정)
 html_template = """
 <!DOCTYPE html>
 <html lang="ko">
@@ -60,27 +60,11 @@ html_template = """
             font-family: Arial, sans-serif;
             line-height: 1.6;
             text-align: justify;
-            margin: 20px;
-        }}
-        .container {{
-            max-width: 2000px;
-            margin: auto;
-        }}
-        h2 {{
-            color: #1E88E5;
-            border-bottom: 2px solid #1E88E5;
-            padding-bottom: 5px;
-        }}
-        .content {{
-            font-size: 15px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            white-space: pre-line;  /* ✅ 줄바꿈 유지 */
-            word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
+            white-space: pre-line;
+            word-wrap: break-word;
         }}
         img {{
-            max-width: 80%;
+            max-width: 100%;
             height: auto;
             display: block;
             margin: 10px auto;
@@ -88,17 +72,10 @@ html_template = """
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            {converted_text}
-        </div>
-    </div>
+    {converted_text}
 </body>
 </html>
 """
-
-
-# st.components.v1.html(mathjax_script, height=0)
 
 st.title("📘 AI 수학 문제 해설 도우미")
 st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인하세요!")
@@ -109,22 +86,31 @@ for index, problem in enumerate(problems):
     
     # ✅ 문제에서 이미지 추출하여 문항 ID 아래에 먼저 표시
     images, problem_text = extract_image_from_text(problem["question"])
-
-    detailed_question = generate_question(llm,problem["question"])
-    rendered_html_question = html_template.format(converted_text=detailed_question)
-    estimated_height_question = max(200, len(rendered_html_explanation) // 3)
-    components.html(rendered_html_question, height=estimated_height)
     
     for img in images:
-        st.image(img)  # ✅ 문제에서 추출된 이미지 바로 출력
-        
-        
+        st.image(img, use_column_width=True)  # ✅ 문제에서 추출된 이미지 바로 출력
+
+    # ✅ GPT로 문제 변환
+    with st.spinner(f"🔍 GPT가 문제 {index+1}를 가독성 좋게 변환 중..."):
+        detailed_question = generate_question(llm, problem_text)
+
+    # ✅ MathJax 적용된 변환된 문제 출력
+    rendered_html_question = html_template.format(converted_text=detailed_question)
+    estimated_height_question = max(200, len(detailed_question) // 3)
+
+    st.markdown("#### 🏫 문제")
+    components.html(rendered_html_question, height=estimated_height_question)  # ✅ 문제 높이 자동 조절
+
+    # ✅ GPT 해설 생성
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
-        detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
-    
-    
+        detailed_explanation = generate_detailed_explanation(llm, problem_text, problem["explanation"])
+
+    # ✅ 개행(\n) 변환 적용
+    detailed_explanation = convert_newlines_to_html(detailed_explanation)
+
+    # ✅ MathJax가 적용된 해설을 HTML로 변환
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
-    estimated_height = max(200, len(rendered_html_explanation) // 3)
-    st.markdown("#### ✨ 문제와 해설")
-    components.html(rendered_html_explanation, height=estimated_height)
-    # st.markdown(rendered_html_explanation, unsafe_allow_html=True)  # ✅ GPT 변환 해설 출력
+    estimated_height_explanation = max(200, len(detailed_explanation) // 3)
+
+    st.markdown("#### ✨ 해설")
+    components.html(rendered_html_explanation, height=estimated_height_explanation)  # ✅ 해설 높이 자동 조절
