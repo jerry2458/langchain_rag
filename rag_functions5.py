@@ -27,7 +27,7 @@ def generate_detailed_explanation(llm, question, explanation, answer, user_promp
     """
     사용자가 입력한 문제, 해설, 정답을 바탕으로 AI가 친절한 해설을 생성하는 함수
     """
-    prompt_template = PromptTemplate(
+    formatted_prompt = PromptTemplate(
         template=(
             "{user_prompt}\n\n"
             "🔹 문제: {question}\n"
