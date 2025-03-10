@@ -2,6 +2,7 @@ import os
 import re
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
+from langchain.schema import HumanMessage
 
 # ✅ LaTeX 수식을 MathJax-friendly HTML로 변환
 def convert_latex_to_mathjax(text):
