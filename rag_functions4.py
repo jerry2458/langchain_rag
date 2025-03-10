@@ -40,7 +40,7 @@ def generate_question(llm, question):
         input_variables=["question"]
     )
 
-    response0 = llm.predict(prompt_template.format(question=question, explanation=explanation))
+    response0 = llm.predict(prompt_template.format(question=question)
     return convert_latex_to_mathjax(response0)
 
 
