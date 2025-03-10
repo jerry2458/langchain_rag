@@ -140,4 +140,4 @@ for index, problem in enumerate(problems):
 
     st.markdown("#### ✨ 해설")
     components.html(rendered_html_explanation, height=estimated_height_explanation, scrolling=True)  # ✅ 해설 높이 자동 조절
-    components.html(detailed_explanation, height=detailed_explanation, scrolling = True)  # ✅ 문제 높이 자동 조절
+    components.html(detailed_explanation, height=500)  # ✅ 문제 높이 자동 조절
