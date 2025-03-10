@@ -55,7 +55,7 @@ llm = AzureChatOpenAI(
     deployment_name=selected_settings["deployment_name"],
     openai_api_version=selected_settings["api_version"],
     openai_api_key=selected_settings["api_key"],
-    base_url = selected_settings["azure_endpoint"]
+    base_url = selected_settings["azure_endpoint"],
     temperature=0.2
 )
 
