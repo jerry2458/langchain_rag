@@ -128,6 +128,7 @@ for index, problem in enumerate(problems):
 
     st.markdown("#### 🏫 문제")
     components.html(rendered_html_question, height=estimated_height_question, scrolling = True)  # ✅ 문제 높이 자동 조절
+    # components.html(detailed_question, height=detailed_question, scrolling = True)  # ✅ 문제 높이 자동 조절
 
     # ✅ GPT 해설 생성
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
@@ -139,3 +140,4 @@ for index, problem in enumerate(problems):
 
     st.markdown("#### ✨ 해설")
     components.html(rendered_html_explanation, height=estimated_height_explanation, scrolling=True)  # ✅ 해설 높이 자동 조절
+    components.html(detailed_explanation, height=detailed_explanation, scrolling = True)  # ✅ 문제 높이 자동 조절
