@@ -3,10 +3,6 @@ import re
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
-# ✅ OpenAI API 키 설정
-os.environ["OPENAI_API_KEY"] = os.getenv("AZURE_OPENAI_API_KEY")
-
-
 # ✅ LaTeX 수식을 MathJax-friendly HTML로 변환
 def convert_latex_to_mathjax(text):
     """
@@ -48,4 +44,4 @@ def generate_detailed_explanation(llm, question, explanation, answer, user_promp
         answer=answer
     ))
 
-    return convert_latex_to_mathjax(response)  # 변환된 해설을 다시 MathJax-friendly HTML로 변경
+    return response  # 변환된 해설을 다시 MathJax-friendly HTML로 변경
