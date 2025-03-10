@@ -121,7 +121,7 @@ for index, problem in enumerate(problems):
 
     # ✅ MathJax 적용된 변환된 문제 출력
     rendered_html_question = html_template.format(converted_text=detailed_question)
-    estimated_height_question = len(rendered_html_question) // 10
+    estimated_height_question = len(rendered_html_question) // 5
 
     st.markdown("#### 🏫 문제")
     components.html(rendered_html_question, height=estimated_height_question)  # ✅ 문제 높이 자동 조절
@@ -132,7 +132,7 @@ for index, problem in enumerate(problems):
 
     # ✅ MathJax가 적용된 해설을 HTML로 변환
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
-    estimated_height_explanation = max(200, len(rendered_html_explanation) // 3)
+    estimated_height_explanation = max(300 , len(rendered_html_explanation) // 4 )
 
     st.markdown("#### ✨ 해설")
     components.html(rendered_html_explanation, height=estimated_height_explanation)  # ✅ 해설 높이 자동 조절
