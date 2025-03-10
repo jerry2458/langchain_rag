@@ -51,15 +51,6 @@ html_template = """
             if (window.MathJax) {{
                 MathJax.typeset();
             }}
-            setTimeout(() => {{
-                parent.postMessage(
-                    {{
-                        type: "streamlitResize",
-                        height: document.documentElement.scrollHeight
-                    }},
-                    "*"
-                );
-            }}, 500);  // ✅ 0.5초 후 높이 자동 조정
         }};
     </script>
     <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -70,20 +61,36 @@ html_template = """
             line-height: 1.4;
             text-align: justify;
             margin: 0;
-            padding: 10px;
+            padding: 0;
         }}
         .container {{
             max-width: 100%;
             margin: 0 auto;
-            padding: 5px 10px;
+            padding: 5px 10px;  /* ✅ 패딩 축소 */
+        }}
+        h2 {{
+            color: #1E88E5;
+            border-bottom: 2px solid #1E88E5;
+            padding-bottom: 5px;
+            margin-bottom: 5px;  /* ✅ 제목과 본문 간격 최소화 */
         }}
         .content {{
             font-size: 15px;
-            padding: 5px 10px;
+            padding: 5px 10px;  /* ✅ 패딩 축소 */
             background: #f9f9f9;
             border-radius: 5px;
             white-space: pre-line;
             word-wrap: break-word;
+            margin-bottom: 5px;  /* ✅ 본문 간 간격 최소화 */
+        }}
+        p {{
+            margin: 2px 0;  /* ✅ 문단 간 여백 최소화 */
+        }}
+        img {{
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 5px auto;  /* ✅ 이미지 간 여백 최소화 */
         }}
     </style>
 </head>
@@ -95,6 +102,7 @@ html_template = """
     </div>
 </body>
 </html>
+
 """
 
 st.title("📘 AI 수학 문제 해설 도우미")
@@ -119,7 +127,7 @@ for index, problem in enumerate(problems):
     estimated_height_question = len(rendered_html_question) // 5
 
     st.markdown("#### 🏫 문제")
-    components.html(rendered_html_question, height=0, scrolling=True)  # ✅ 문제 높이 자동 조절
+    components.html(rendered_html_question, height=estimated_height_question, scrolling = True)  # ✅ 문제 높이 자동 조절
 
     # ✅ GPT 해설 생성
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
@@ -127,7 +135,7 @@ for index, problem in enumerate(problems):
 
     # ✅ MathJax가 적용된 해설을 HTML로 변환
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
-    estimated_height_explanation = len(rendered_html_explanation)
+    estimated_height_explanation = max(150, len(rendered_html_explanation) // 4)
 
     st.markdown("#### ✨ 해설")
-    components.html(rendered_html_explanation, height=0, scrolling=True)  # ✅ 해설 높이 자동 조절
+    components.html(rendered_html_explanation, height=estimated_height_explanation, scrolling=True)  # ✅ 해설 높이 자동 조절
