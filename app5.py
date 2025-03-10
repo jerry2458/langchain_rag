@@ -31,7 +31,7 @@ selected_model = st.sidebar.radio("모델 선택", list(model_options.keys()))
 selected_settings = model_options[selected_model]
 
 # ✅ 환경 변수 설정 (선택한 모델에 맞게 적용)
-os.environ["openai_api_base"] = selected_settings["api_base"]
+os.environ["openai_api_base"] = selected_settings["azure_endpoint"]
 os.environ["openai_api_key"] = selected_settings["api_key"]
 os.environ["openai_api_version"] = selected_settings["api_version"]
 
@@ -54,8 +54,6 @@ user_prompt = st.sidebar.text_area("프롬프트 수정", default_prompt, height
 llm = AzureChatOpenAI(
     deployment_name=selected_settings["deployment_name"],
     openai_api_version=selected_settings["api_version"],
-    openai_api_base=selected_settings["api_base"],
-    openai_api_key=selected_settings["api_key"],
     temperature=0.2
 )
 
