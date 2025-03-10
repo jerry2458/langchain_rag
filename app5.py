@@ -10,16 +10,16 @@ st.write("📢 문제, 해설, 정답을 입력하면 AI가 친절한 해설을 
 # ✅ 모델별 설정값 정의 (각 환경 변수에서 가져오기)
 model_options = {
     "GPT-4": {
-        "deployment_name": "cats-aieng-prod-gpt4o-2024-05-13",
+        "deployment_name": os.getenv("AZURE_GPT4_DEPLOYMENT_NAME"),
         "api_version": os.getenv("AZURE_GPT4_API_VERSION"),
         "api_base": os.getenv("AZURE_GPT4_ENDPOINT"),
         "api_key": os.getenv("AZURE_GPT4_API_KEY")
     },
-    "GPT-3.5": {
-        "deployment_name": "cats-aieng-prod-gpt3.5-2024-05-13",
-        "api_version": os.getenv("AZURE_GPT35_API_VERSION"),
-        "api_base": os.getenv("AZURE_GPT35_ENDPOINT"),
-        "api_key": os.getenv("AZURE_GPT35_API_KEY")
+    "GPT-o3-mini": {
+        "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),
+        "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
+        "api_base": os.getenv("AZURE_GPTo3_ENDPOINT"),
+        "api_key": os.getenv("AZURE_GPTo3_API_KEY")
     }
 }
 
