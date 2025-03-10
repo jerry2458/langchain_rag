@@ -60,8 +60,23 @@ html_template = """
             font-family: Arial, sans-serif;
             line-height: 1.6;
             text-align: justify;
-            margin: 10px;
-            white-space: pre-line; /* ✅ 줄바꿈 유지 */
+            margin: 20px;
+        }}
+        .container {{
+            max-width: 800px;
+            margin: auto;
+        }}
+        h2 {{
+            color: #1E88E5;
+            border-bottom: 2px solid #1E88E5;
+            padding-bottom: 5px;
+        }}
+        .content {{
+            font-size: 18px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            white-space: pre-line;  /* ✅ 줄바꿈 유지 */
             word-wrap: break-word;  /* ✅ 긴 단어 줄바꿈 */
         }}
         img {{
@@ -73,7 +88,11 @@ html_template = """
     </style>
 </head>
 <body>
-    {converted_text}
+    <div class="container">
+        <div class="content">
+            {converted_text}
+        </div>
+    </div>
 </body>
 </html>
 """
