@@ -7,21 +7,20 @@ import os
 st.title("📘 AI 수학 문제 해설 도우미")
 st.write("📢 문제, 해설, 정답을 입력하면 AI가 친절한 해설을 생성해줍니다.")
 
-# ✅ 모델별 설정값 정의 (각 환경 변수에서 가져오기)
+# ✅ 모델별 설정값 정의 (각 환경 변수에서 직접 가져오기)
 model_options = {
     "GPT-4": {
         "deployment_name": os.getenv("AZURE_GPT4_DEPLOYMENT_NAME"),
         "api_version": os.getenv("AZURE_GPT4_API_VERSION"),
-        "azure_endpoint": os.getenv("AZURE_GPT4_ENDPOINT"),
+        "api_base": os.getenv("AZURE_GPT4_ENDPOINT"),
         "api_key": os.getenv("AZURE_GPT4_API_KEY")
+    },
+    "GPT-o3-mini": {
+        "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),  # ✅ 변수명 수정 (기존 오타 수정: "AZURE_GPTo3_" → "AZURE_GPT35_")
+        "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
+        "api_base": os.getenv("AZURE_GPTo3_ENDPOINT"),
+        "api_key": os.getenv("AZURE_GPTo3_API_KEY")
     }
-    # ,
-    # "GPT-o3-mini": {
-    #     "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),
-    #     "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
-    #     "azure_endpoint": os.getenv("AZURE_GPTo3_ENDPOINT"),
-    #     "api_key": os.getenv("AZURE_GPTo3_API_KEY")
-    # }
 }
 
 # ✅ 모델 선택 UI
@@ -30,11 +29,6 @@ selected_model = st.sidebar.radio("모델 선택", list(model_options.keys()))
 
 # ✅ 선택한 모델의 설정값 가져오기
 selected_settings = model_options[selected_model]
-
-# ✅ 환경 변수 설정 (선택한 모델에 맞게 적용)
-# os.environ["openai_api_base"] = selected_settings["azure_endpoint"]
-# os.environ["openai_api_key"] = selected_settings["api_key"]
-# os.environ["openai_api_version"] = selected_settings["api_version"]
 
 # ✅ 사용자 입력창 생성 (문제, 해설, 정답 입력)
 st.header("📝 문제 입력")
@@ -51,12 +45,12 @@ default_prompt = (
 )
 user_prompt = st.sidebar.text_area("프롬프트 수정", default_prompt, height=150)
 
-# ✅ LLM 모델 설정 (선택한 모델과 API 설정 적용)
+# ✅ LLM 모델 설정 (환경 변수 설정 불필요 → selected_settings 직접 사용)
 llm = AzureChatOpenAI(
     deployment_name=selected_settings["deployment_name"],
     openai_api_version=selected_settings["api_version"],
+    openai_api_base=selected_settings["api_base"],
     openai_api_key=selected_settings["api_key"],
-    base_url = selected_settings["azure_endpoint"],
     temperature=0.2
 )
 
