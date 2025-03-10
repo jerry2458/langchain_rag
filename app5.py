@@ -17,10 +17,10 @@ model_options = {
         "supports_temperature": True  # ✅ GPT-4는 temperature 지원
     },
     "GPT-o3-mini": {
-        "deployment_name": os.getenv("AZURE_GPT_o3_DEPLOYMENT_NAME"),  # ✅ 환경 변수명 수정 (오타 확인 필요)
-        "api_version": os.getenv("AZURE_GPT_o3_API_VERSION"),
-        "api_base": os.getenv("AZURE_GPT_o3_ENDPOINT"),
-        "api_key": os.getenv("AZURE_GPT_o3_API_KEY"),
+        "deployment_name": os.getenv("AZURE_GPTo3_DEPLOYMENT_NAME"),  # ✅ 환경 변수명 수정 (오타 확인 필요)
+        "api_version": os.getenv("AZURE_GPTo3_API_VERSION"),
+        "api_base": os.getenv("AZURE_GPTo3_ENDPOINT"),
+        "api_key": os.getenv("AZURE_GPTo3_API_KEY"),
         "supports_temperature": False  # ✅ GPT-o3-mini는 temperature 미지원
     }
 }
