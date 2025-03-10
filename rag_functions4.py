@@ -32,10 +32,10 @@ def load_html_explanation_data(file_path):
 # ✅ (3) GPT를 이용해 해설을 더 친절한 말투로 변환
 def generate_question(llm, question):
     prompt_template = PromptTemplate(
-        template=(
-            "사용자가 읽을 때 가독성이 좋도록 문장별로 줄바꿈이나 띄어쓰기 등을 잘 지켜주세요.\n\n"
+        template=("사용자가 읽을 때 가독성이 좋도록 문장별로 줄바꿈이나 띄어쓰기 등을 잘 지켜주세요.\n\n"
             "이미지 url들은 모두 제외하고 출력해주세요.\n\n"
-            "🔹 문제: {question}\n"
+            "문제에 대한 풀이는 절대 출력하지 말아주세요.\n\n"
+            "🔹 문제: {question}"
         ),
         input_variables=["question"]
     )
@@ -47,8 +47,8 @@ def generate_question(llm, question):
 # ✅ (3) GPT를 이용해 해설을 더 친절한 말투로 변환
 def generate_detailed_explanation(llm, explanation):
     prompt_template = PromptTemplate(
-        template=(
-            "다음 문제의 해설을 초등학생도 이해할 수 있도록 친절하게 바꿔주세요:\n\n"
+        template=("다음 문제의 해설을 초등학생도 이해할 수 있도록 친절하게 바꿔주세요:\n\n"
+            "해설을 바꿔주겠다는 대답은 따로 안해줘도 될 것 같아요.\n\n"
             "사용자가 읽을 때 가독성이 좋도록 문장별로 줄바꿈이나 띄어쓰기 등을 잘 지켜주세요.\n\n"
             "🔹 기존 해설: {explanation}\n\n"
             "💡 새로운 해설 (어떤 형식이든 사용자가 보기 편한 양식으로 변환해주세요.):"
