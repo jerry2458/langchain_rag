@@ -63,7 +63,7 @@ html_template = """
             margin: 20px;
         }}
         .container {{
-            max-width: 800px;
+            max-width: auto;
             margin: auto;
         }}
         h2 {{
@@ -123,7 +123,7 @@ for index, problem in enumerate(problems):
 
     # ✅ GPT 해설 생성
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
-        detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
+        detailed_explanation = generate_detailed_explanation(llm, problem["explanation"])
 
     # ✅ MathJax가 적용된 해설을 HTML로 변환
     rendered_html_explanation = html_template.format(converted_text=detailed_explanation)
