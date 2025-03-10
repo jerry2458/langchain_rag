@@ -1,5 +1,5 @@
 import streamlit as st
-from rag_functions4 import load_html_explanation_data, generate_detailed_explanation
+from rag_functions4 import load_html_explanation_data, generate_detailed_explanation, generate_question
 from langchain.chat_models import AzureChatOpenAI
 import os
 import streamlit.components.v1 as components
@@ -72,8 +72,8 @@ html_template = """
             padding-bottom: 5px;
         }}
         .content {{
-            font-size: 12px;
-            padding: 12px;
+            font-size: 15px;
+            padding: 15px;
             background: #f9f9f9;
             border-radius: 10px;
             white-space: pre-line;  /* ✅ 줄바꿈 유지 */
@@ -106,13 +106,19 @@ st.write("📢 모든 문제와 친절한 해설을 한 페이지에서 확인�
 # ✅ 문제 & GPT 해설 출력
 for index, problem in enumerate(problems):
     st.markdown(f"### 📝 문제 {index + 1} (ID: {problem['question_id']})")  # ✅ 문항아이디 포함
-
+    
     # ✅ 문제에서 이미지 추출하여 문항 ID 아래에 먼저 표시
     images, problem_text = extract_image_from_text(problem["question"])
+
+    detailed_question = generate_question(llm,problem["question"])
+    rendered_html_question = html_template.format(converted_text=detailed_question)
+    estimated_height_question = max(200, len(rendered_html_explanation) // 3)
+    components.html(rendered_html_question, height=estimated_height)
     
     for img in images:
         st.image(img)  # ✅ 문제에서 추출된 이미지 바로 출력
-    
+        
+        
     with st.spinner(f"🔍 GPT가 문제 {index+1} 해설을 생성 중..."):
         detailed_explanation = generate_detailed_explanation(llm, problem["question"], problem["explanation"])
     
