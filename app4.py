@@ -21,7 +21,7 @@ temperature = st.sidebar.slider("🌡️ GPT 창의성 조절 (Temperature)", mi
 # ✅ GPT 모델 설정
 llm = AzureChatOpenAI(
     deployment_name="cats-aieng-prod-gpt4o-2024-05-13",
-    openai_api_version="2024-05-13",
+    openai_api_version="2024-05-01-preview",
     temperature=temperature
 )
 
