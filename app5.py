@@ -49,16 +49,17 @@ st.sidebar.write(f"Supports Temperature: {selected_settings['supports_temperatur
 # ✅ 사용자 프롬프트 수정 가능
 st.sidebar.header("📝 프롬프트 설정")
 
-default_prompt = ("이 데이터를 참고하여 초등학생도 이해할 수 있도록 더 친절하고 상세하고 쉬운 해설을 생성해주세요.\n"
-                  "출력은 반드시 원본 데이터와 동일한 HTML 태그 구조를 유지해야 합니다.")
+default_prompt = ("이 데이터를 참고하여 초등학생도 이해할 수 있도록 쉽게 설명해주세요.\n"
+                  "입력한 해설을 바탕으로 이해를 돕고, 기본 개념을 명확히 설명해주세요.\n"
+                  "출력할 때 HTML 태그 구조를 반드시 유지하고, HTML 태그 텍스트가 그대로 화면에 보이도록 해주세요.")
 
-user_prompt = st.sidebar.text_area("프롬프트 수정", default_prompt, height=150)
+user_prompt = st.sidebar.text_area("프롬프트 수정", default_prompt, height=200)
 
 
 # ✅ 사용자 입력창 생성 (문제, 해설, 정답 입력)
 st.header("📝 문제 입력")
 question_input = st.text_area("문제 입력", "이곳에 문제를 입력하세요.")
-solution_input = st.text_area("기존 해설 입력", "이곳에 기존 해설을 입력하세요.")
+solution_input = st.text_area("기존 해설 입력", "이곳에 해설을 입력하세요.")
 answer_input = st.text_input("정답 입력", "이곳에 정답을 입력하세요.")
 
 # ✅ LLM 모델 설정 (GPT-o3-mini는 temperature 인수를 완전히 제거)
@@ -83,9 +84,7 @@ else:
 # ✅ 변환 실행 버튼
 if st.button("🔄 해설 변환 실행"):
     with st.spinner("🔍 AI가 친절한 해설을 생성 중..."):
-        transformed_solution = generate_detailed_explanation(
-            llm, question_input, solution_input, answer_input, user_prompt
-        )
+        transformed_solution = generate_detailed_explanation(llm, question_input, solution_input, answer_input, user_prompt)
 
     # ✅ 결과 출력
     st.header("✨ 변환된 친절한 해설")
