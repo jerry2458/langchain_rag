@@ -89,4 +89,4 @@ if st.button("🔄 해설 변환 실행"):
 
     # ✅ 결과 출력
     st.header("✨ 변환된 친절한 해설")
-    st.markdown(transformed_solution, unsafe_allow_html=True)
+    st.markdown(transformed_solution, unsafe_allow_html= False)
