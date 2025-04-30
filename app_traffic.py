@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from function import get_data, get_data_count
+from function_traffic import get_data, get_data_count
 
 st.set_page_config(page_title="📊 API 데이터 모니터링", layout="wide")
 
