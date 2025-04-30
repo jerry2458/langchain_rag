@@ -29,14 +29,14 @@ def get_data(start_date=None, end_date=None, limit=500):
 
     if start_date and end_date:
         query = """
-            SELECT * FROM api_data
+            SELECT * FROM traffic_info_2
             WHERE DATE(collDate) BETWEEN ? AND ?
-            ORDER BY reg_date DESC
+            ORDER BY collDate DESC
         """
         df = pd.read_sql_query(query, conn, params=(start_date, end_date))
     else:
         query = f"""
-            SELECT * FROM api_data
+            SELECT * FROM traffic_info_2
             ORDER BY collDate DESC
             LIMIT {limit}
         """
