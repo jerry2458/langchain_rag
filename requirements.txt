@@ -8,3 +8,4 @@ pdfplumber
 pysqlite3-binary
 tiktoken
 sentence-transformers
+pymysql
