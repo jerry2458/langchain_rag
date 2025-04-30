@@ -13,7 +13,7 @@ DB_CONFIG = {
 
 # 2. SQLAlchemy 엔진 생성
 engine = create_engine(
-    "mysql+pymysql://root:Sweet0326!!@127.0.0.1:3306/test",
+    "mysql+pymysql://jerry:Sweet0326!!@127.0.0.1:3306/test",
     pool_pre_ping=True
 )
 
