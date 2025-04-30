@@ -4,7 +4,7 @@ import os
 
 # 1. DB 접속 설정
 DB_CONFIG = {
-    "host": "localhost",
+    "host": "127.0.0.1",
     "user": "jerry",
     "password": "Sweet0326!!",
     "database": "test",
