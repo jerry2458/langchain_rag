@@ -8,7 +8,7 @@ DB_CONFIG = {
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PW"),
     "database": os.getenv("DB"),
-    "port": os.getenv("DB_PORT"),
+    "port": 3306,
     "cursorclass": pymysql.cursors.DictCursor
 }
 
