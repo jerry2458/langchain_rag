@@ -4,7 +4,7 @@ import os
 
 
 DB_CONFIG = {
-    "host": 14.63.44.3,
+    "host": "14.63.44.3",
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PW"),
     "database": os.getenv("DB"),
