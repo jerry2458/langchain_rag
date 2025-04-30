@@ -5,9 +5,9 @@ import os
 # 1. DB 접속 설정
 DB_CONFIG = {
     "host": "localhost",
-    "user": os.getenv("DB_USER"),
-    "password": os.getenv("DB_PW"),
-    "database": os.getenv("DB"),
+    "user": "jerry",
+    "password": "Sweet0326!!",
+    "database": "test",
     "port": 3306
 }
 
