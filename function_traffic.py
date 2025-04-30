@@ -4,7 +4,7 @@ import os
 
 # 1. DB 접속 설정
 DB_CONFIG = {
-    "host": "14.63.44.3",
+    "host": "localhost",
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PW"),
     "database": os.getenv("DB"),
