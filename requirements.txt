@@ -9,3 +9,4 @@ pysqlite3-binary
 tiktoken
 sentence-transformers
 pymysql
+sqlalchemy
