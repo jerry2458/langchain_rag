@@ -10,3 +10,4 @@ tiktoken
 sentence-transformers
 pymysql
 sqlalchemy
+protobuf<=3.20.1
