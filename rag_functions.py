@@ -9,6 +9,7 @@ from langchain.prompts import PromptTemplate
 import pdfplumber
 import pysqlite3 as sqlite3
 from langchain_community.embeddings import SentenceTransformerEmbeddings
+import torch
 
 # OpenAI API 키 설정
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
@@ -17,6 +18,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+torch.classes.__path__ = []
 
 # 벡터 저장소 로드
 def load_vectorstore(vectorstore_path):
